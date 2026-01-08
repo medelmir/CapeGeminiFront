@@ -1,0 +1,94 @@
+<div class="form-container">
+  <div class="form-header">
+    <h2>{{ isEditMode ? 'Modifier une donnée' : 'Créer une donnée' }}</h2>
+  </div>
+
+  <form [formGroup]="boiteForm" (ngSubmit)="onSubmitForm()">
+    <div class="form-group">
+      <label for="nom">Nom:*</label>
+      <input 
+        type="text" 
+        id="nom" 
+        formControlName="nom" 
+        class="form-control"
+        placeholder="Nom"
+      />
+      <div class="error-message" *ngIf="f['nom'].invalid && f['nom'].touched">
+        Le nom est requis
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea 
+        id="description" 
+        formControlName="description" 
+        class="form-control"
+        placeholder="Description"
+        rows="4"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="quantite">Quantité:*</label>
+      <input 
+        type="number" 
+        id="quantite" 
+        formControlName="quantite" 
+        class="form-control"
+        placeholder="Quantité"
+        min="0"
+      />
+      <div class="error-message" *ngIf="f['quantite'].invalid && f['quantite'].touched">
+        La quantité est requise et doit être positive
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group half-width">
+        <label for="latitude">Latitude:*</label>
+        <input 
+          type="text" 
+          id="latitude" 
+          formControlName="latitude" 
+          class="form-control"
+          placeholder="Latitude"
+        />
+        <div class="error-message" *ngIf="f['latitude'].invalid && f['latitude'].touched">
+          La latitude est requise
+        </div>
+      </div>
+
+      <div class="form-group half-width">
+        <label for="longitude">Longitude:*</label>
+        <input 
+          type="text" 
+          id="longitude" 
+          formControlName="longitude" 
+          class="form-control"
+          placeholder="Longitude"
+        />
+        <div class="error-message" *ngIf="f['longitude'].invalid && f['longitude'].touched">
+          La longitude est requise
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        type="button" 
+        class="btn btn-secondary" 
+        (click)="cancel()"
+      >
+        Annuler
+      </button>
+      <button 
+        type="submit" 
+        class="btn btn-primary" 
+        [disabled]="boiteForm.invalid"
+      >
+        {{ isEditMode ? 'Modifier' : 'Créer' }}
+      </button>
+    </div>
+  </form>
+</div>

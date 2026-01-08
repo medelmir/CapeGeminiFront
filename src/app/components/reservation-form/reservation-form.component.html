@@ -1,0 +1,48 @@
+<div class="form-container">
+    <div class="form-header">
+        <h2>{{ isEditMode() ? 'Modifier la réservation' : 'Nouvelle réservation' }}</h2>
+    </div>
+
+    <form (ngSubmit)="handleSubmit()" class="reservation-form">
+        <div class="form-group">
+            <label for="utilisateur">Utilisateur *</label>
+            <select id="utilisateur" [(ngModel)]="formData.utilisateurId" name="utilisateur" [disabled]="isEditMode()"
+                required>
+                <option [value]="0" disabled>Sélectionner un utilisateur</option>
+                <option *ngFor="let user of utilisateurs" [value]="user.id">
+                    {{ user.prenom }} {{ user.nom }} ({{ user.username }})
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="boite">Boîte *</label>
+            <select id="boite" [(ngModel)]="formData.boiteId" name="boite" [disabled]="isEditMode()" required>
+                <option [value]="0" disabled>Sélectionner une boîte</option>
+                <option *ngFor="let boite of boites" [value]="boite.identifiant">
+                    {{ boite.nom }} (Quantité disponible: {{ boite.quantite }})
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="quantite">Quantité réservée *</label>
+            <input type="number" id="quantite" [(ngModel)]="formData.reservation" name="quantite"
+                [max]="(getSelectedBoite()?.quantite || 0) + (isEditMode() ? (reservation?.reservation || 0) : 0)"
+                min="1" required />
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+
+        <div class="form-actions">
+            <button type="button" class="btn btn-cancel" (click)="handleCancel()">
+                Annuler
+            </button>
+            <button type="submit" class="btn btn-submit">
+                {{ isEditMode() ? 'Modifier' : 'Ajouter' }}
+            </button>
+        </div>
+    </form>
+</div>
