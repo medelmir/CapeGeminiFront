@@ -4,6 +4,9 @@ import { ReservationListComponent } from './components/reservation-list/reservat
 import { HomeComponent } from './components/home/home.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { LefatComponent } from './components/lefat/lefat.component';
+import { UtilisateurListComponent } from './components/utilisateur-list/utilisateur-list.component';
+
+
 
 export const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
@@ -22,6 +25,10 @@ export const routes: Routes = [
   {
     path: 'reservations',
     component: ReservationListComponent,
+  },
+  {
+    path: 'utilisateurs',
+    component: UtilisateurListComponent,
   },
   { path: '**', redirectTo: 'login' }
 ];
